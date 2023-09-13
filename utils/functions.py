@@ -44,14 +44,14 @@ def get_all_possibilities(lista, variable):
 # Funcion para obtener la mejor opcion para preguntar dentro de una lista de posibilidades (string)
 def best_option(posibilities):
     best_item = 0
+    i = 0
     for item in posibilities:
         var = posibilities.count(item)
         if best_item < var:
-            if best_item == 2:
-                best_item = var - randint(0, 1)
-            else:
-                best_item = var - 1
-    return posibilities[best_item]
+                best_item = var
+                item_pos = i
+        i += 1
+    return posibilities[item_pos]
 
 # Funcion para obtener la mejor opcion para preguntar dentro de una lista de posibilidades (int)
 def best_option_number(posibilities):
@@ -102,10 +102,11 @@ def get_best_question(list):
     PREGUNTA_11 = {"Question": "¿Su equipo ha descendido de primera división dos veces o más? ",
                    "Function": comparacion_mas_que(list, 1, "Descensos")}
 
-    PREGUNTA_12 = {}
+    PREGUNTA_12 = {"Question": "¿Su equipo es de la provincia {}? ".format(best_option(get_all_possibilities(list, "Provincia"))),
+                    "Function": comparacion_igual(list, best_option(get_all_possibilities(list, "Provincia")), "Provincia")}
 
     all_questions = [PREGUNTA_1, PREGUNTA_2, PREGUNTA_3, PREGUNTA_4, PREGUNTA_5, PREGUNTA_6, PREGUNTA_7, PREGUNTA_8,
-                     PREGUNTA_9, PREGUNTA_10, PREGUNTA_11]
+                     PREGUNTA_9, PREGUNTA_10, PREGUNTA_11, PREGUNTA_12]
 
     CONST = len(list) // 2
     best_number = 999999
